@@ -19,3 +19,6 @@ dependencies = [
     "jinja2>=3.1.2",
     "yagmail>=0.15.293"
 ]
+
+[project.scripts]
+run-notifier = "goes_notifier.cli:run_server"

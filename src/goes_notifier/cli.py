@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 import click
+from loguru import logger
 
 from goes_notifier.app import find_appointments
 from goes_notifier.notifiers import DesktopNotifier, EmailNotifier, SMSNotifier
@@ -10,12 +11,16 @@ from goes_notifier.util import load_config
 
 
 @click.command()
-@click.option("--config", type=click.Path(exists=True, dir_okay=False, path_type=Path))
+@click.option(
+    "--config",
+    default="./config.toml",
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+)
 @click.option("--frequency", type=click.FloatRange(min=0), default=2)
 @click.option("--add-jitter", default=True)
 @click.option("--enable-sms-notifications", default=False)
 @click.option("--enable-email-notifications", default=False)
-@click.option("--enable-desktop-notifications", deafult=False)
+@click.option("--enable-desktop-notifications", default=False)
 def run_server(
     config: Path,
     frequency: float,
@@ -38,7 +43,9 @@ def run_server(
 
     while True:
         find_appointments(c["location_codes"], notifiers)
-        time.sleep(frequency + jitter_func())
+        sleep_time = frequency + jitter_func()
+        time.sleep(sleep_time)
+        logger.debug(f"Sleeping for {sleep_time:.2f} seconds")
 
 
 # pylint: disable=no-value-for-parameter

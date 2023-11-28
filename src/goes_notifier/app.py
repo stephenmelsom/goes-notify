@@ -32,11 +32,10 @@ class AppointmentObserver:
 
 # pylint: disable=dangerous-default-value
 def find_appointments(location_codes: list[int], notifiers: list[Notifier] = []):
-    appointment_observer = AppointmentObserver(notifiers)
-    appointments = _get_interview_dates()
-    logger.info(f"{len(appointments)} appointments available")
-    appointments = list(filter(lambda a: a.locationId in location_codes, appointments))
+    appt_observer = AppointmentObserver(notifiers)
+    appts = _get_interview_dates()
+    filtered_appts = list(filter(lambda a: a.locationId in location_codes, appts))
     logger.info(
-        f"{len(appointments)} appointments meeting the specified criteria available"
+        f"{len(filtered_appts)}/{len(appts)} available appointments meet the specified criteria"
     )
-    appointment_observer.notify_new_appointments(appointments)
+    appt_observer.notify_new_appointments(filtered_appts)
