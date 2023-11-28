@@ -1,0 +1,14 @@
+location_codes = [ 14321 ]
+
+[email]
+user = ""
+recipients = [ "" ]
+host_url = ""
+host_port = ""
+password_file = ""
+
+[sms]
+twilio_account_sid = ""
+twilio_auth_token = ""
+from_number = ""
+to_number = ""

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Good news! New Global Entry appointment(s) available on the following dates:</title>
+</head>
+<body>
+    <ul id="navigation">
+    {% for appointment in appointments %}
+        <li>{{ appointment.startTimestamp }}</li>
+    {% endfor %}
+    </ul>
+    <p>If this sounds good, please sign in to https://ttp.cbp.dhs.gov/ to reschedule.</p>
+</body>
+</html>
